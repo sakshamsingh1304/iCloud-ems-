@@ -1,0 +1,787 @@
+﻿mysql.exe : mysql: [Warning] Using a password on the command line interface can be insecure.
+At line:1 char:77
++ ... ning.sql" | & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
++----------------------------------------------------+
+|                                                    |
++----------------------------------------------------+
+| ====== TASK 1.3: Duplicate Fee Transactions ====== |
++----------------------------------------------------+
++--------------+------------------+--------------+------------------+-----------------+
+| admission_no | transaction_type | total_amount | transaction_date | duplicate_count |
++--------------+------------------+--------------+------------------+-----------------+
+| ADM10057     | DUE              |      8000.00 | 2025-04-19       |               2 |
+| ADM10125     | DUE              |      8000.00 | 2025-02-13       |               2 |
+| ADM10136     | DUE              |     15000.00 | 2025-04-05       |               2 |
+| ADM10191     | DUE              |     12000.00 | 2025-01-18       |               2 |
+| ADM10191     | DUE              |     18000.00 | 2025-09-01       |               2 |
+| ADM10201     | PAID             |     20000.00 | 2025-09-14       |               2 |
+| ADM10226     | PAID             |     18000.00 | 2025-07-21       |               2 |
+| ADM10289     | DUE              |      8000.00 | 2025-08-24       |               2 |
++--------------+------------------+--------------+------------------+-----------------+
++------------------------------------+
+|                                    |
++------------------------------------+
+| --- Full details of duplicates --- |
++------------------------------------+
++----------------+--------------+------------------+------------------+--------------+---------+
+| transaction_id | admission_no | transaction_date | transaction_type | total_amount | status  |
++----------------+--------------+------------------+------------------+--------------+---------+
+|            100 | ADM10057     | 2025-04-19       | DUE              |      8000.00 | Success |
+|            511 | ADM10057     | 2025-04-19       | DUE              |      8000.00 | Success |
+|            217 | ADM10125     | 2025-02-13       | DUE              |      8000.00 | Success |
+|            510 | ADM10125     | 2025-02-13       | DUE              |      8000.00 | Success |
+|            235 | ADM10136     | 2025-04-05       | DUE              |     15000.00 | Success |
+|            509 | ADM10136     | 2025-04-05       | DUE              |     15000.00 | Success |
+|            326 | ADM10191     | 2025-01-18       | DUE              |     12000.00 | Success |
+|            515 | ADM10191     | 2025-01-18       | DUE              |     12000.00 | Success |
+|            328 | ADM10191     | 2025-09-01       | DUE              |     18000.00 | Success |
+|            513 | ADM10191     | 2025-09-01       | DUE              |     18000.00 | Success |
+|            345 | ADM10201     | 2025-09-14       | PAID             |     20000.00 | Success |
+|            516 | ADM10201     | 2025-09-14       | PAID             |     20000.00 | Success |
+|            385 | ADM10226     | 2025-07-21       | PAID             |     18000.00 | Success |
+|            512 | ADM10226     | 2025-07-21       | PAID             |     18000.00 | Success |
+|            486 | ADM10289     | 2025-08-24       | DUE              |      8000.00 | Success |
+|            514 | ADM10289     | 2025-08-24       | DUE              |      8000.00 | Success |
++----------------+--------------+------------------+------------------+--------------+---------+
++--------------------------------------------------------------+
+|                                                              |
++--------------------------------------------------------------+
+| ====== TASK 1.4: Students with Outstanding/Due Amount ====== |
++--------------------------------------------------------------+
++------------+--------------+----------------------+-------------------------+
+| student_id | admission_no | full_name            | program_name            |
++------------+--------------+----------------------+-------------------------+
+|          1 | ADM10001     | Rohan Singh          | B.Tech Computer Science |
+|          2 | ADM10002     | Varun Singh          | MCA                     |
+|          4 | ADM10004     | Anika Reddy          | MCA                     |
+|          5 | ADM10005     | Krishna Sharma       | B.Tech Mechanical       |
+|          6 | ADM10006     | Reyansh Mehta        | B.Tech Electronics      |
+|          7 | ADM10007     | Sneha Rao            | Diploma Mechanical      |
+|          9 | ADM10009     | Pooja Rao            | Diploma Mechanical      |
+|         12 | ADM10012     | Reyansh Iyer         | B.Tech Electronics      |
+|         13 | ADM10013     | Sai Bose             | M.Tech Computer Science |
+|         14 | ADM10014     | Ayaan Mehta          | B.Tech Computer Science |
+|         15 | ADM10015     | Saanvi Iyer          | B.Tech Electronics      |
+|         16 | ADM10016     | Reyansh Kapoor       | M.Tech Computer Science |
+|         17 | ADM10017     | Ayaan Chauhan        | MCA                     |
+|         18 | ADM10018     | Pooja Yadav          | M.Tech Computer Science |
+|         19 | ADM10019     | Myra Gupta           | B.Tech Computer Science |
+|         21 | ADM10021     | Kiara Malhotra       | BBA                     |
+|         22 | ADM10022     | Karan Chauhan        | BBA                     |
+|         23 | ADM10023     | Sai Bose             | B.Tech Computer Science |
+|         24 | ADM10024     | Pari Singh           | BBA                     |
+|         25 | ADM10025     | Anika Malhotra       | B.Tech Computer Science |
+|         26 | ADM10026     | Neha Rao             | BBA                     |
+|         28 | ADM10028     | Arjun Kapoor         | MCA                     |
+|         30 | ADM10030     | Karan Rao            | BCA                     |
+|         31 | ADM10031     | Aditya Mehta         | B.Tech Computer Science |
+|         33 | ADM10033     | Aditya Malhotra      | B.Com (Hons)            |
+|         39 | ADM10039     | Ayaan Gupta          | BCA                     |
+|         43 | ADM10043     | Karan Kapoor         | B.Tech Mechanical       |
+|         44 | ADM10044     | Navya Chauhan        | B.Tech Computer Science |
+|         45 | ADM10045     | Myra Malhotra        | MCA                     |
+|         46 | ADM10046     | Sneha Patel          | B.Tech Electronics      |
+|         47 | ADM10047     | Saanvi Singh         | Diploma Mechanical      |
+|         50 | ADM10050     | Kiara Mehta          | B.Tech Electronics      |
+|         51 | ADM10051     | Vihaan Gupta         | MCA                     |
+|         52 | ADM10052     | Neha Rao             | B.Tech Electronics      |
+|         53 | ADM10053     | Kiara Chauhan        | BBA                     |
+|         54 | ADM10054     | Ishaan Singh         | B.Tech Mechanical       |
+|         56 | ADM10056     | Karan Iyer           | MCA                     |
+|         57 | ADM10057     | Aditya Chatterjee    | BBA                     |
+|         58 | ADM10058     | Rohan Iyer           | B.Tech Mechanical       |
+|         60 | ADM10060     | Vivaan Rao           | Diploma Mechanical      |
+|         61 | ADM10061     | Ishaan Rao           | B.Tech Computer Science |
+|         62 | ADM10062     | Karan Singh          | MBA                     |
+|         63 | ADM10063     | Neha Nair            | B.Tech Mechanical       |
+|         64 | ADM10064     | Varun Mehta          | M.Tech Computer Science |
+|         68 | ADM10068     | Rohan Malhotra       | M.Tech Computer Science |
+|         69 | ADM10069     | Sai Yadav            | BBA                     |
+|         70 | ADM10070     | Diya Mehta           | M.Tech Computer Science |
+|         73 | ADM10073     | Riya Mehta           | B.Tech Electronics      |
+|         74 | ADM10074     | Ananya Das           | BBA                     |
+|         76 | ADM10076     | Ishaan Joshi         | B.Com (Hons)            |
+|         79 | ADM10079     | Ananya Gupta         | B.Com (Hons)            |
+|         80 | ADM10080     | Arjun Sharma         | B.Tech Computer Science |
+|         81 | ADM10081     | Kiara Chatterjee     | Diploma Mechanical      |
+|        302 | ADM10081     | Meera Kumar          | Diploma Mechanical      |
+|         82 | ADM10082     | Myra Das             | B.Com (Hons)            |
+|         84 | ADM10084     | Kiara Verma          | MCA                     |
+|         85 | ADM10085     | Meera Bose           | MCA                     |
+|         86 | ADM10086     | Priya Malhotra       | M.Tech Computer Science |
+|         88 | ADM10088     | Myra Nair            | BBA                     |
+|         90 | ADM10090     | Arjun Nair           | M.Tech Computer Science |
+|        303 | ADM10090     | Meera Kapoor         | M.Tech Computer Science |
+|         91 | ADM10091     | Aadhya Chatterjee    | MBA                     |
+|         93 | ADM10093     | Myra Sharma          | MBA                     |
+|         94 | ADM10094     | Anika Chauhan        | Diploma Mechanical      |
+|         95 | ADM10095     | Aadhya Kapoor        | B.Tech Computer Science |
+|         96 | ADM10096     | Varun Patel          | BCA                     |
+|         97 | ADM10097     | Neha Das             | Diploma Mechanical      |
+|         99 | ADM10099     | Reyansh Bose         | MBA                     |
+|        100 | ADM10100     | Siddharth Chatterjee | BBA                     |
+|        101 | ADM10101     | Vivaan Rao           | B.Com (Hons)            |
+|        102 | ADM10102     | Siddharth Sharma     | B.Com (Hons)            |
+|        104 | ADM10104     | Nikhil Iyer          | MBA                     |
+|        106 | ADM10106     | Navya Das            | M.Tech Computer Science |
+|        109 | ADM10109     | Aarav Chatterjee     | BCA                     |
+|        111 | ADM10111     | Riya Chauhan         | BCA                     |
+|        113 | ADM10113     | Siddharth Bose       | Diploma Mechanical      |
+|        114 | ADM10114     | Sneha Mehta          | B.Tech Mechanical       |
+|        115 | ADM10115     | Ananya Iyer          | Diploma Mechanical      |
+|        116 | ADM10116     | Reyansh Gupta        | B.Com (Hons)            |
+|        119 | ADM10119     | Diya Kapoor          | MCA                     |
+|        120 | ADM10120     | Ananya Rao           | BCA                     |
+|        121 | ADM10121     | Vihaan Reddy         | MBA                     |
+|        122 | ADM10122     | Reyansh Reddy        | BCA                     |
+|        125 | ADM10125     | Anika Joshi          | B.Tech Mechanical       |
+|        127 | ADM10127     | Vivaan Iyer          | BCA                     |
+|        129 | ADM10129     | Ishaan Gupta         | B.Com (Hons)            |
+|        131 | ADM10131     | Kiara Bose           | BBA                     |
+|        132 | ADM10132     | Vivaan Pandey        | B.Tech Electronics      |
+|        136 | ADM10136     | Aditya Nair          | BBA                     |
+|        137 | ADM10137     | Ayaan Kumar          | BBA                     |
+|        140 | ADM10140     | Kiara Gupta          | Diploma Mechanical      |
+|        141 | ADM10141     | Riya Iyer            | B.Tech Computer Science |
+|        143 | ADM10143     | Myra Malhotra        | BCA                     |
+|        148 | ADM10148     | Karan Chauhan        | BCA                     |
+|        154 | ADM10154     | Nikhil Iyer          | M.Tech Computer Science |
+|        301 | ADM10154     | Ayaan Singh          | M.Tech Computer Science |
+|        155 | ADM10155     | Anika Kumar          | M.Tech Computer Science |
+|        156 | ADM10156     | Sneha Gupta          | BBA                     |
+|        157 | ADM10157     | Krishna Sharma       | BBA                     |
+|        160 | ADM10160     | Nikhil Nair          | Diploma Mechanical      |
+|        161 | ADM10161     | Vivaan Mehta         | BCA                     |
+|        162 | ADM10162     | Myra Verma           | B.Tech Mechanical       |
+|        163 | ADM10163     | Vihaan Malhotra      | BCA                     |
+|        165 | ADM10165     | Riya Das             | B.Tech Electronics      |
+|        167 | ADM10167     | Rohan Joshi          | B.Com (Hons)            |
+|        169 | ADM10169     | Ishaan Rao           | MBA                     |
+|        170 | ADM10170     | Aadhya Yadav         | B.Tech Mechanical       |
+|        172 | ADM10172     | Ayaan Bose           | BBA                     |
+|        173 | ADM10173     | Pooja Bose           | BBA                     |
+|        175 | ADM10175     | Reyansh Das          | BCA                     |
+|        176 | ADM10176     | Diya Yadav           | BBA                     |
+|        178 | ADM10178     | Priya Joshi          | B.Com (Hons)            |
+|        179 | ADM10179     | Riya Iyer            | B.Tech Mechanical       |
+|        180 | ADM10180     | Ishaan Bose          | B.Tech Computer Science |
+|        181 | ADM10181     | Neha Joshi           | MBA                     |
+|        182 | ADM10182     | Meera Chauhan        | MBA                     |
+|        183 | ADM10183     | Neha Kapoor          | BBA                     |
+|        185 | ADM10185     | Aditya Das           | B.Tech Computer Science |
+|        304 | ADM10186     | Diya Chauhan         | Diploma Mechanical      |
+|        186 | ADM10186     | Diya Iyer            | Diploma Mechanical      |
+|        189 | ADM10189     | Neha Joshi           | M.Tech Computer Science |
+|        190 | ADM10190     | Ishaan Kapoor        | B.Tech Electronics      |
+|        191 | ADM10191     | Saanvi Bose          | MBA                     |
+|        199 | ADM10199     | Arjun Chauhan        | BBA                     |
+|        200 | ADM10200     | Arjun Sharma         | MBA                     |
+|        201 | ADM10201     | Sai Iyer             | B.Tech Computer Science |
+|        203 | ADM10203     | Navya Singh          | BCA                     |
+|        208 | ADM10208     | Aadhya Singh         | B.Tech Electronics      |
+|        212 | ADM10212     | Meera Kumar          | MCA                     |
+|        214 | ADM10214     | Sneha Verma          | BBA                     |
+|        215 | ADM10215     | Pari Reddy           | B.Tech Mechanical       |
+|        218 | ADM10218     | Aarav Patel          | BBA                     |
+|        220 | ADM10220     | Aditya Malhotra      | B.Com (Hons)            |
+|        225 | ADM10225     | Vihaan Rao           | M.Tech Computer Science |
+|        229 | ADM10229     | Varun Chatterjee     | B.Tech Mechanical       |
+|        232 | ADM10232     | Navya Das            | M.Tech Computer Science |
+|        234 | ADM10234     | Aditya Chatterjee    | B.Tech Electronics      |
+|        235 | ADM10235     | Pari Gupta           | M.Tech Computer Science |
+|        236 | ADM10236     | Ananya Patel         | B.Tech Electronics      |
+|        237 | ADM10237     | Pooja Rao            | MBA                     |
+|        238 | ADM10238     | Krishna Reddy        | B.Tech Mechanical       |
+|        239 | ADM10239     | Sai Kapoor           | BCA                     |
+|        244 | ADM10244     | Meera Verma          | BCA                     |
+|        245 | ADM10245     | Pari Kumar           | B.Tech Computer Science |
+|        247 | ADM10247     | Kiara Malhotra       | MCA                     |
+|        249 | ADM10249     | Aditya Mehta         | B.Tech Electronics      |
+|        250 | ADM10250     | Sneha Kumar          | MBA                     |
+|        251 | ADM10251     | Neha Rao             | BBA                     |
+|        252 | ADM10252     | Ishaan Chauhan       | M.Tech Computer Science |
+|        254 | ADM10254     | Sai Reddy            | MBA                     |
+|        255 | ADM10255     | Arjun Gupta          | BBA                     |
+|        256 | ADM10256     | Priya Malhotra       | B.Tech Computer Science |
+|        258 | ADM10258     | Meera Patel          | BCA                     |
+|        260 | ADM10260     | Ishaan Kapoor        | B.Com (Hons)            |
+|        261 | ADM10261     | Kiara Joshi          | M.Tech Computer Science |
+|        305 | ADM10261     | Diya Bose            | M.Tech Computer Science |
+|        263 | ADM10263     | Sneha Rao            | MCA                     |
+|        264 | ADM10264     | Sneha Singh          | BBA                     |
+|        265 | ADM10265     | Kiara Malhotra       | B.Tech Mechanical       |
+|        267 | ADM10267     | Diya Nair            | M.Tech Computer Science |
+|        270 | ADM10270     | Pooja Gupta          | B.Tech Computer Science |
+|        274 | ADM10274     | Rohan Malhotra       | Diploma Mechanical      |
+|        275 | ADM10275     | Aadhya Sharma        | Diploma Mechanical      |
+|        276 | ADM10276     | Sai Gupta            | MCA                     |
+|        277 | ADM10277     | Pari Malhotra        | MCA                     |
+|        278 | ADM10278     | Vivaan Das           | MBA                     |
+|        279 | ADM10279     | Meera Gupta          | MBA                     |
+|        281 | ADM10281     | Ananya Patel         | BCA                     |
+|        283 | ADM10283     | Pooja Verma          | MBA                     |
+|        289 | ADM10289     | Vihaan Gupta         | MBA                     |
+|        290 | ADM10290     | Nikhil Chatterjee    | B.Tech Mechanical       |
+|        291 | ADM10291     | Varun Rao            | Diploma Mechanical      |
+|        296 | ADM10296     | Diya Das             | MBA                     |
+|        299 | ADM10299     | Reyansh Singh        | B.Tech Mechanical       |
+|        300 | ADM10300     | Aditya Mehta         | MBA                     |
++------------+--------------+----------------------+-------------------------+
++---------------------------------------------------------+
+|                                                         |
++---------------------------------------------------------+
+| ====== TASK 1.5: Total Due Amount Admission-wise ====== |
++---------------------------------------------------------+
++--------------+----------------------+-----------+------------+------------------+---------------------+
+| admission_no | full_name            | total_due | total_paid | total_concession | outstanding_balance |
++--------------+----------------------+-----------+------------+------------------+---------------------+
+| ADM10017     | Ayaan Chauhan        |  52000.00 |       0.00 |             0.00 |            52000.00 |
+| ADM10024     | Pari Singh           |  42000.00 |       0.00 |             0.00 |            42000.00 |
+| ADM10191     | Saanvi Bose          |  60000.00 |   18000.00 |             0.00 |            42000.00 |
+| ADM10026     | Neha Rao             |  40000.00 |       0.00 |             0.00 |            40000.00 |
+| ADM10258     | Meera Patel          |  40000.00 |       0.00 |             0.00 |            40000.00 |
+| ADM10106     | Navya Das            |  37000.00 |       0.00 |             0.00 |            37000.00 |
+| ADM10057     | Aditya Chatterjee    |  36000.00 |       0.00 |             0.00 |            36000.00 |
+| ADM10125     | Anika Joshi          |  36000.00 |       0.00 |             0.00 |            36000.00 |
+| ADM10261     | Diya Bose            |  36000.00 |       0.00 |             0.00 |            36000.00 |
+| ADM10261     | Kiara Joshi          |  36000.00 |       0.00 |             0.00 |            36000.00 |
+| ADM10289     | Vihaan Gupta         |  36000.00 |       0.00 |             0.00 |            36000.00 |
+| ADM10053     | Kiara Chauhan        |  35000.00 |       0.00 |             0.00 |            35000.00 |
+| ADM10079     | Ananya Gupta         |  35000.00 |       0.00 |             0.00 |            35000.00 |
+| ADM10060     | Vivaan Rao           |  45000.00 |   12000.00 |             0.00 |            33000.00 |
+| ADM10063     | Neha Nair            |  33000.00 |       0.00 |             0.00 |            33000.00 |
+| ADM10176     | Diya Yadav           |  33000.00 |       0.00 |             0.00 |            33000.00 |
+| ADM10173     | Pooja Bose           |  36000.00 |    5000.00 |             0.00 |            31000.00 |
+| ADM10009     | Pooja Rao            |  30000.00 |       0.00 |             0.00 |            30000.00 |
+| ADM10095     | Aadhya Kapoor        |  30000.00 |       0.00 |             0.00 |            30000.00 |
+| ADM10225     | Vihaan Rao           |  30000.00 |       0.00 |             0.00 |            30000.00 |
+| ADM10238     | Krishna Reddy        |  30000.00 |       0.00 |             0.00 |            30000.00 |
+| ADM10062     | Karan Singh          |  37000.00 |    8000.00 |             0.00 |            29000.00 |
+| ADM10085     | Meera Bose           |  28000.00 |       0.00 |             0.00 |            28000.00 |
+| ADM10254     | Sai Reddy            |  33000.00 |    5000.00 |             0.00 |            28000.00 |
+| ADM10054     | Ishaan Singh         |  38000.00 |   12000.00 |             0.00 |            26000.00 |
+| ADM10039     | Ayaan Gupta          |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10047     | Saanvi Singh         |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10081     | Meera Kumar          |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10081     | Kiara Chatterjee     |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10115     | Ananya Iyer          |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10119     | Diya Kapoor          |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10131     | Kiara Bose           |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10132     | Vivaan Pandey        |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10237     | Pooja Rao            |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10275     | Aadhya Sharma        |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10279     | Meera Gupta          |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10281     | Ananya Patel         |  25000.00 |       0.00 |             0.00 |            25000.00 |
+| ADM10091     | Aadhya Chatterjee    |  23000.00 |       0.00 |             0.00 |            23000.00 |
+| ADM10102     | Siddharth Sharma     |  23000.00 |       0.00 |             0.00 |            23000.00 |
+| ADM10007     | Sneha Rao            |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10028     | Arjun Kapoor         |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10046     | Sneha Patel          |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10051     | Vihaan Gupta         |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10052     | Neha Rao             |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10229     | Varun Chatterjee     |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10250     | Sneha Kumar          |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10260     | Ishaan Kapoor        |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10296     | Diya Das             |  20000.00 |       0.00 |             0.00 |            20000.00 |
+| ADM10070     | Diya Mehta           |  18000.00 |       0.00 |             0.00 |            18000.00 |
+| ADM10074     | Ananya Das           |  18000.00 |       0.00 |             0.00 |            18000.00 |
+| ADM10100     | Siddharth Chatterjee |  28000.00 |   10000.00 |             0.00 |            18000.00 |
+| ADM10122     | Reyansh Reddy        |  18000.00 |       0.00 |             0.00 |            18000.00 |
+| ADM10156     | Sneha Gupta          |  18000.00 |       0.00 |             0.00 |            18000.00 |
+| ADM10167     | Rohan Joshi          |  30000.00 |   12000.00 |             0.00 |            18000.00 |
+| ADM10061     | Ishaan Rao           |  17000.00 |       0.00 |             0.00 |            17000.00 |
+| ADM10001     | Rohan Singh          |  26000.00 |   10000.00 |             0.00 |            16000.00 |
+| ADM10252     | Ishaan Chauhan       |  26000.00 |   10000.00 |             0.00 |            16000.00 |
+| ADM10004     | Anika Reddy          |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10031     | Aditya Mehta         |  40000.00 |   25000.00 |             0.00 |            15000.00 |
+| ADM10043     | Karan Kapoor         |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10068     | Rohan Malhotra       |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10080     | Arjun Sharma         |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10090     | Meera Kapoor         |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10090     | Arjun Nair           |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10093     | Myra Sharma          |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10096     | Varun Patel          |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10157     | Krishna Sharma       |  25000.00 |   10000.00 |             0.00 |            15000.00 |
+| ADM10180     | Ishaan Bose          |  20000.00 |    5000.00 |             0.00 |            15000.00 |
+| ADM10185     | Aditya Das           |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10274     | Rohan Malhotra       |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10283     | Pooja Verma          |  15000.00 |       0.00 |             0.00 |            15000.00 |
+| ADM10050     | Kiara Mehta          |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10064     | Varun Mehta          |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10084     | Kiara Verma          |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10111     | Riya Chauhan         |  20000.00 |    8000.00 |             0.00 |            12000.00 |
+| ADM10143     | Myra Malhotra        |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10178     | Priya Joshi          |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10215     | Pari Reddy           |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10244     | Meera Verma          |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10249     | Aditya Mehta         |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10276     | Sai Gupta            |  12000.00 |       0.00 |             0.00 |            12000.00 |
+| ADM10056     | Karan Iyer           |  20000.00 |   10000.00 |             0.00 |            10000.00 |
+| ADM10082     | Myra Das             |  18000.00 |    8000.00 |             0.00 |            10000.00 |
+| ADM10129     | Ishaan Gupta         |  20000.00 |   10000.00 |             0.00 |            10000.00 |
+| ADM10155     | Anika Kumar          |  10000.00 |       0.00 |             0.00 |            10000.00 |
+| ADM10161     | Vivaan Mehta         |  25000.00 |       0.00 |         15000.00 |            10000.00 |
+| ADM10165     | Riya Das             |  20000.00 |   10000.00 |             0.00 |            10000.00 |
+| ADM10203     | Navya Singh          |  25000.00 |   15000.00 |             0.00 |            10000.00 |
+| ADM10235     | Pari Gupta           |  25000.00 |   15000.00 |             0.00 |            10000.00 |
+| ADM10236     | Ananya Patel         |  10000.00 |       0.00 |             0.00 |            10000.00 |
+| ADM10255     | Arjun Gupta          |  18000.00 |    8000.00 |             0.00 |            10000.00 |
+| ADM10263     | Sneha Rao            |  10000.00 |       0.00 |             0.00 |            10000.00 |
+| ADM10014     | Ayaan Mehta          |  33000.00 |   25000.00 |             0.00 |             8000.00 |
+| ADM10016     | Reyansh Kapoor       |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10045     | Myra Malhotra        |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10088     | Myra Nair            |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10148     | Karan Chauhan        |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10181     | Neha Joshi           |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10190     | Ishaan Kapoor        |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10199     | Arjun Chauhan        |  18000.00 |   10000.00 |             0.00 |             8000.00 |
+| ADM10220     | Aditya Malhotra      |   8000.00 |       0.00 |             0.00 |             8000.00 |
+| ADM10247     | Kiara Malhotra       |  18000.00 |   10000.00 |             0.00 |             8000.00 |
+| ADM10299     | Reyansh Singh        |  23000.00 |   15000.00 |             0.00 |             8000.00 |
+| ADM10094     | Anika Chauhan        |  25000.00 |   18000.00 |             0.00 |             7000.00 |
+| ADM10101     | Vivaan Rao           |  15000.00 |    8000.00 |             0.00 |             7000.00 |
+| ADM10162     | Myra Verma           |  25000.00 |       0.00 |         18000.00 |             7000.00 |
+| ADM10189     | Neha Joshi           |  15000.00 |    8000.00 |             0.00 |             7000.00 |
+| ADM10116     | Reyansh Gupta        |  18000.00 |   12000.00 |             0.00 |             6000.00 |
+| ADM10005     | Krishna Sharma       |  25000.00 |   20000.00 |             0.00 |             5000.00 |
+| ADM10044     | Navya Chauhan        |  15000.00 |   10000.00 |             0.00 |             5000.00 |
+| ADM10099     | Reyansh Bose         |   5000.00 |       0.00 |             0.00 |             5000.00 |
+| ADM10136     | Aditya Nair          |  30000.00 |   25000.00 |             0.00 |             5000.00 |
+| ADM10141     | Riya Iyer            |   5000.00 |       0.00 |             0.00 |             5000.00 |
+| ADM10169     | Ishaan Rao           |  20000.00 |   15000.00 |             0.00 |             5000.00 |
+| ADM10183     | Neha Kapoor          |   5000.00 |       0.00 |             0.00 |             5000.00 |
+| ADM10265     | Kiara Malhotra       |   5000.00 |       0.00 |             0.00 |             5000.00 |
+| ADM10278     | Vivaan Das           |  25000.00 |   20000.00 |             0.00 |             5000.00 |
+| ADM10069     | Sai Yadav            |  12000.00 |    8000.00 |             0.00 |             4000.00 |
+| ADM10086     | Priya Malhotra       |  12000.00 |    8000.00 |             0.00 |             4000.00 |
+| ADM10251     | Neha Rao             |  12000.00 |    8000.00 |             0.00 |             4000.00 |
+| ADM10291     | Varun Rao            |  12000.00 |    8000.00 |             0.00 |             4000.00 |
+| ADM10021     | Kiara Malhotra       |  15000.00 |   12000.00 |             0.00 |             3000.00 |
+| ADM10270     | Pooja Gupta          |  15000.00 |       0.00 |         12000.00 |             3000.00 |
+| ADM10163     | Vihaan Malhotra      |  20000.00 |   18000.00 |             0.00 |             2000.00 |
+| ADM10012     | Reyansh Iyer         |  26000.00 |   25000.00 |             0.00 |             1000.00 |
++--------------+----------------------+-----------+------------+------------------+---------------------+
++-----------------------------------------------------------------+
+|                                                                 |
++-----------------------------------------------------------------+
+| ====== TASK 1.6: Top 10 Students by Fee Collected (PAID) ====== |
++-----------------------------------------------------------------+
++--------------+----------------+------------+
+| admission_no | full_name      | total_paid |
++--------------+----------------+------------+
+| ADM10226     | Myra Malhotra  |   61000.00 |
+| ADM10008     | Anika Singh    |   49000.00 |
+| ADM10159     | Ananya Chauhan |   49000.00 |
+| ADM10295     | Diya Rao       |   46000.00 |
+| ADM10107     | Vihaan Joshi   |   45000.00 |
+| ADM10242     | Ishaan Bose    |   45000.00 |
+| ADM10202     | Vihaan Gupta   |   43000.00 |
+| ADM10067     | Saanvi Mehta   |   43000.00 |
+| ADM10193     | Vivaan Rao     |   40000.00 |
+| ADM10137     | Ayaan Kumar    |   40000.00 |
++--------------+----------------+------------+
++-------------------------------------------------------+
+|                                                       |
++-------------------------------------------------------+
+| ====== TASK 1.7: Top Programs by Fee Collected ====== |
++-------------------------------------------------------+
++------------+-------------------------+-----------------+
+| program_id | program_name            | total_collected |
++------------+-------------------------+-----------------+
+|          8 | BCA                     |       673000.00 |
+|          5 | BBA                     |       526000.00 |
+|          7 | M.Tech Computer Science |       464000.00 |
+|         10 | Diploma Mechanical      |       424000.00 |
+|          3 | B.Tech Mechanical       |       385000.00 |
+|          6 | MBA                     |       374000.00 |
+|          9 | MCA                     |       333000.00 |
+|          1 | B.Tech Computer Science |       303000.00 |
+|          4 | B.Com (Hons)            |       303000.00 |
+|          2 | B.Tech Electronics      |       258000.00 |
++------------+-------------------------+-----------------+
++--------------------------------------------------------+
+|                                                        |
++--------------------------------------------------------+
+| ====== TASK 1.8: Parent-Child Amount Mismatches ====== |
++--------------------------------------------------------+
++----------------+--------------+------------------+---------------+-------------+------------+
+| transaction_id | admission_no | transaction_type | parent_amount | child_total | difference |
++----------------+--------------+------------------+---------------+-------------+------------+
+|             83 | ADM10046     | DUE              |      20000.00 |        0.00 |   20000.00 |
+|            128 | ADM10073     | CONCESSION       |      20000.00 |        0.00 |   20000.00 |
+|            287 | ADM10168     | PAID             |      18000.00 |        0.00 |   18000.00 |
+|            427 | ADM10252     | DUE              |      18000.00 |        0.00 |   18000.00 |
+|             34 | ADM10017     | DUE              |      15000.00 |        0.00 |   15000.00 |
+|            110 | ADM10061     | DUE              |      12000.00 |        0.00 |   12000.00 |
+|            179 | ADM10105     | CONCESSION       |      12000.00 |        0.00 |   12000.00 |
+|            201 | ADM10116     | PAID             |      12000.00 |        0.00 |   12000.00 |
+|            365 | ADM10212     | PAID             |      25000.00 |    13154.00 |   11846.00 |
+|            318 | ADM10186     | DUE              |      25000.00 |    14057.00 |   10943.00 |
+|             96 | ADM10055     | PAID             |      25000.00 |    14240.00 |   10760.00 |
+|            135 | ADM10079     | DUE              |      20000.00 |    10925.00 |    9075.00 |
+|            514 | ADM10289     | DUE              |       8000.00 |        0.00 |    8000.00 |
+|            253 | ADM10147     | PAID             |       5000.00 |        0.00 |    5000.00 |
+|            518 | ADM10025     | PAID             |      15000.00 |    10000.00 |    5000.00 |
+|            320 | ADM10187     | PAID             |      18000.00 |    13410.00 |    4590.00 |
+|            238 | ADM10137     | PAID             |      25000.00 |    20617.00 |    4383.00 |
+|            467 | ADM10277     | PAID             |      25000.00 |    21033.00 |    3967.00 |
+|            100 | ADM10057     | DUE              |       8000.00 |     4438.00 |    3562.00 |
+|            203 | ADM10117     | PAID             |      10000.00 |     6640.00 |    3360.00 |
+|            482 | ADM10287     | CONCESSION       |      10000.00 |     6798.00 |    3202.00 |
+|            457 | ADM10271     | PAID             |      12000.00 |     9083.00 |    2917.00 |
+|            480 | ADM10286     | PAID             |       5000.00 |     3238.00 |    1762.00 |
+|             81 | ADM10044     | DUE              |      15000.00 |    13558.00 |    1442.00 |
+|            341 | ADM10199     | PAID             |      10000.00 |     9161.00 |     839.00 |
+|            477 | ADM10284     | CONCESSION       |       5000.00 |     4263.00 |     737.00 |
++----------------+--------------+------------------+---------------+-------------+------------+
++-------------------------------------------------------------------+
+|                                                                   |
++-------------------------------------------------------------------+
+| ====== TASK 1.9: Parent Transactions with No Child Records ====== |
++-------------------------------------------------------------------+
++----------------+--------------+------------------+------------------+--------------+----------+
+| transaction_id | admission_no | transaction_date | transaction_type | total_amount | status   |
++----------------+--------------+------------------+------------------+--------------+----------+
+|             34 | ADM10017     | 2025-03-04       | DUE              |     15000.00 | Success  |
+|             83 | ADM10046     | 2025-06-19       | DUE              |     20000.00 | Success  |
+|            110 | ADM10061     | 2025-09-06       | DUE              |     12000.00 | Success  |
+|            128 | ADM10073     | 2025-01-09       | CONCESSION       |     20000.00 | Approved |
+|            179 | ADM10105     | 2025-08-26       | CONCESSION       |     12000.00 | Approved |
+|            201 | ADM10116     | 2025-03-15       | PAID             |     12000.00 | Success  |
+|            253 | ADM10147     | 2025-01-22       | PAID             |      5000.00 | Success  |
+|            287 | ADM10168     | 2025-02-25       | PAID             |     18000.00 | Success  |
+|            427 | ADM10252     | 2025-03-18       | DUE              |     18000.00 | Success  |
+|            514 | ADM10289     | 2025-08-24       | DUE              |      8000.00 | Success  |
++----------------+--------------+------------------+------------------+--------------+----------+
++-----------------------------------------------------------+
+|                                                           |
++-----------------------------------------------------------+
+| ====== TASK 1.10: Orphan Child Records (No Parent) ====== |
++-----------------------------------------------------------+
++-----------+----------------+--------------+-----------------+---------+---------+
+| detail_id | transaction_id | admission_no | fee_head        | amount  | status  |
++-----------+----------------+--------------+-----------------+---------+---------+
+|       893 |           1016 | ADM10221     | Hostel Fee      | 7000.00 | Success |
+|       894 |           1017 | ADM10176     | Development Fee | 7000.00 | Success |
+|       895 |           1018 | ADM10121     | Exam Fee        | 7000.00 | Success |
+|       896 |           1019 | ADM10040     | Sports Fee      | 7000.00 | Success |
+|       897 |           1020 | ADM10294     | Hostel Fee      | 3000.00 | Success |
+|       898 |           1021 | ADM10238     | Library Fee     | 7000.00 | Success |
+|       899 |           1022 | ADM10050     | Hostel Fee      | 3000.00 | Success |
+|       900 |           1023 | ADM10158     | Hostel Fee      | 3000.00 | Success |
+|       901 |           1024 | ADM10056     | Sports Fee      | 7000.00 | Success |
+|       902 |           1025 | ADM10195     | Library Fee     | 5000.00 | Success |
++-----------+----------------+--------------+-----------------+---------+---------+
++------------------------------------------------+
+|                                                |
++------------------------------------------------+
+| ====== TASK 1.11: Reconciliation Report ====== |
++------------------------------------------------+
++------------------+-------------------+--------------------+--------------+---------------+------------+
+| admission_number | transaction_count | transaction_amount | detail_count | detail_amount | difference |
++------------------+-------------------+--------------------+--------------+---------------+------------+
+| ADM10001         |                 3 |           36000.00 |            7 |      36000.00 |       0.00 |
+| ADM10002         |                 3 |           40000.00 |            4 |      40000.00 |       0.00 |
+| ADM10003         |                 1 |           10000.00 |            2 |      10000.00 |       0.00 |
+| ADM10004         |                 1 |           15000.00 |            3 |      15000.00 |       0.00 |
+| ADM10005         |                 2 |           45000.00 |            4 |      45000.00 |       0.00 |
+| ADM10006         |                 2 |           18000.00 |            2 |      18000.00 |       0.00 |
+| ADM10007         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10008         |                 3 |           49000.00 |            6 |      49000.00 |       0.00 |
+| ADM10009         |                 2 |           30000.00 |            6 |      30000.00 |       0.00 |
+| ADM10010         |                 2 |           38000.00 |            2 |      38000.00 |       0.00 |
+| ADM10011         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10012         |                 3 |           51000.00 |            5 |      51000.00 |       0.00 |
+| ADM10013         |                 2 |           20000.00 |            6 |      20000.00 |       0.00 |
+| ADM10014         |                 3 |           58000.00 |            5 |      58000.00 |       0.00 |
+| ADM10015         |                 3 |           53000.00 |            4 |      53000.00 |       0.00 |
+| ADM10016         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10017         |                 3 |           52000.00 |            2 |      37000.00 |   15000.00 |
+| ADM10018         |                 3 |           28000.00 |            7 |      28000.00 |       0.00 |
+| ADM10019         |                 3 |           58000.00 |            7 |      58000.00 |       0.00 |
+| ADM10020         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10021         |                 2 |           27000.00 |            2 |      27000.00 |       0.00 |
+| ADM10022         |                 2 |           40000.00 |            4 |      40000.00 |       0.00 |
+| ADM10023         |                 3 |           42000.00 |            3 |      42000.00 |       0.00 |
+| ADM10024         |                 3 |           42000.00 |            5 |      42000.00 |       0.00 |
+| ADM10025         |                 2 |           30000.00 |            3 |      25000.00 |    5000.00 |
+| ADM10026         |                 2 |           40000.00 |            4 |      40000.00 |       0.00 |
+| ADM10027         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10028         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10029         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10030         |                 2 |           30000.00 |            3 |      30000.00 |       0.00 |
+| ADM10031         |                 3 |           65000.00 |            5 |      65000.00 |       0.00 |
+| ADM10032         |                 1 |            5000.00 |            3 |       5000.00 |       0.00 |
+| ADM10033         |                 2 |           30000.00 |            2 |      30000.00 |       0.00 |
+| ADM10034         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10035         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10036         |                 1 |           15000.00 |            2 |      15000.00 |       0.00 |
+| ADM10037         |                 2 |           35000.00 |            5 |      35000.00 |       0.00 |
+| ADM10038         |                 1 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10039         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10040         |                 1 |            8000.00 |            2 |      15000.00 |   -7000.00 |
+| ADM10041         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10042         |                 1 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10043         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10044         |                 2 |           25000.00 |            4 |      23558.00 |    1442.00 |
+| ADM10045         |                 1 |            8000.00 |            3 |       8000.00 |       0.00 |
+| ADM10046         |                 1 |           20000.00 |            0 |          0.00 |   20000.00 |
+| ADM10047         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10048         |                 2 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10049         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10050         |                 1 |           12000.00 |            4 |      15000.00 |   -3000.00 |
+| ADM10051         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10052         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10053         |                 2 |           35000.00 |            2 |      35000.00 |       0.00 |
+| ADM10054         |                 3 |           50000.00 |            7 |      50000.00 |       0.00 |
+| ADM10055         |                 1 |           25000.00 |            1 |      14240.00 |   10760.00 |
+| ADM10056         |                 2 |           30000.00 |            5 |      37000.00 |   -7000.00 |
+| ADM10057         |                 3 |           36000.00 |            5 |      32438.00 |    3562.00 |
+| ADM10058         |                 3 |           65000.00 |            7 |      65000.00 |       0.00 |
+| ADM10059         |                 2 |           18000.00 |            4 |      18000.00 |       0.00 |
+| ADM10060         |                 3 |           57000.00 |            7 |      57000.00 |       0.00 |
+| ADM10061         |                 2 |           17000.00 |            2 |       5000.00 |   12000.00 |
+| ADM10062         |                 3 |           45000.00 |            7 |      45000.00 |       0.00 |
+| ADM10063         |                 2 |           33000.00 |            5 |      33000.00 |       0.00 |
+| ADM10064         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10065         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10066         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10067         |                 2 |           43000.00 |            4 |      43000.00 |       0.00 |
+| ADM10068         |                 1 |           15000.00 |            2 |      15000.00 |       0.00 |
+| ADM10069         |                 2 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10070         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10071         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10072         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10073         |                 2 |           35000.00 |            1 |      15000.00 |   20000.00 |
+| ADM10074         |                 1 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10075         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10076         |                 2 |           17000.00 |            5 |      17000.00 |       0.00 |
+| ADM10077         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10078         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10079         |                 2 |           35000.00 |            3 |      25925.00 |    9075.00 |
+| ADM10080         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10081         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10082         |                 2 |           26000.00 |            5 |      26000.00 |       0.00 |
+| ADM10083         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10084         |                 1 |           12000.00 |            3 |      12000.00 |       0.00 |
+| ADM10085         |                 2 |           28000.00 |            3 |      28000.00 |       0.00 |
+| ADM10086         |                 2 |           20000.00 |            2 |      20000.00 |       0.00 |
+| ADM10087         |                 1 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10088         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10089         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10090         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10091         |                 3 |           23000.00 |            7 |      23000.00 |       0.00 |
+| ADM10092         |                 2 |           33000.00 |            5 |      33000.00 |       0.00 |
+| ADM10093         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10094         |                 3 |           43000.00 |            5 |      43000.00 |       0.00 |
+| ADM10095         |                 2 |           30000.00 |            3 |      30000.00 |       0.00 |
+| ADM10096         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10097         |                 2 |           45000.00 |            3 |      45000.00 |       0.00 |
+| ADM10098         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10099         |                 1 |            5000.00 |            2 |       5000.00 |       0.00 |
+| ADM10100         |                 3 |           38000.00 |            4 |      38000.00 |       0.00 |
+| ADM10101         |                 2 |           23000.00 |            2 |      23000.00 |       0.00 |
+| ADM10102         |                 2 |           23000.00 |            2 |      23000.00 |       0.00 |
+| ADM10103         |                 2 |           25000.00 |            4 |      25000.00 |       0.00 |
+| ADM10104         |                 2 |           17000.00 |            2 |      17000.00 |       0.00 |
+| ADM10105         |                 2 |           20000.00 |            1 |       8000.00 |   12000.00 |
+| ADM10106         |                 2 |           37000.00 |            5 |      37000.00 |       0.00 |
+| ADM10107         |                 3 |           45000.00 |            7 |      45000.00 |       0.00 |
+| ADM10108         |                 2 |           20000.00 |            4 |      20000.00 |       0.00 |
+| ADM10109         |                 3 |           48000.00 |            5 |      48000.00 |       0.00 |
+| ADM10110         |                 1 |            5000.00 |            1 |       5000.00 |       0.00 |
+| ADM10111         |                 3 |           28000.00 |            5 |      28000.00 |       0.00 |
+| ADM10112         |                 1 |           20000.00 |            2 |      20000.00 |       0.00 |
+| ADM10113         |                 3 |           57000.00 |            5 |      57000.00 |       0.00 |
+| ADM10114         |                 2 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10115         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10116         |                 2 |           30000.00 |            1 |      18000.00 |   12000.00 |
+| ADM10117         |                 1 |           10000.00 |            1 |       6640.00 |    3360.00 |
+| ADM10118         |                 3 |           50000.00 |            4 |      50000.00 |       0.00 |
+| ADM10119         |                 1 |           25000.00 |            2 |      25000.00 |       0.00 |
+| ADM10120         |                 3 |           41000.00 |            4 |      41000.00 |       0.00 |
+| ADM10121         |                 2 |           33000.00 |            4 |      40000.00 |   -7000.00 |
+| ADM10122         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10123         |                 1 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10124         |                 1 |           10000.00 |            3 |      10000.00 |       0.00 |
+| ADM10125         |                 3 |           36000.00 |            7 |      36000.00 |       0.00 |
+| ADM10126         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10127         |                 3 |           46000.00 |            6 |      46000.00 |       0.00 |
+| ADM10128         |                 2 |           26000.00 |            4 |      26000.00 |       0.00 |
+| ADM10129         |                 2 |           30000.00 |            6 |      30000.00 |       0.00 |
+| ADM10130         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10131         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10132         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10133         |                 2 |           23000.00 |            4 |      23000.00 |       0.00 |
+| ADM10134         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10135         |                 2 |           35000.00 |            5 |      35000.00 |       0.00 |
+| ADM10136         |                 3 |           55000.00 |            4 |      55000.00 |       0.00 |
+| ADM10137         |                 3 |           58000.00 |            6 |      53617.00 |    4383.00 |
+| ADM10138         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10139         |                 2 |           37000.00 |            3 |      37000.00 |       0.00 |
+| ADM10140         |                 3 |           41000.00 |            5 |      41000.00 |       0.00 |
+| ADM10141         |                 1 |            5000.00 |            2 |       5000.00 |       0.00 |
+| ADM10142         |                 1 |            8000.00 |            3 |       8000.00 |       0.00 |
+| ADM10143         |                 1 |           12000.00 |            2 |      12000.00 |       0.00 |
+| ADM10144         |                 1 |           12000.00 |            2 |      12000.00 |       0.00 |
+| ADM10145         |                 3 |           53000.00 |            6 |      53000.00 |       0.00 |
+| ADM10146         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10147         |                 2 |           10000.00 |            3 |       5000.00 |    5000.00 |
+| ADM10148         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10149         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10150         |                 1 |           15000.00 |            2 |      15000.00 |       0.00 |
+| ADM10151         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10152         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10153         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10154         |                 2 |           23000.00 |            2 |      23000.00 |       0.00 |
+| ADM10155         |                 1 |           10000.00 |            2 |      10000.00 |       0.00 |
+| ADM10156         |                 1 |           18000.00 |            3 |      18000.00 |       0.00 |
+| ADM10157         |                 2 |           35000.00 |            4 |      35000.00 |       0.00 |
+| ADM10158         |                 1 |           25000.00 |            4 |      28000.00 |   -3000.00 |
+| ADM10159         |                 3 |           49000.00 |            5 |      49000.00 |       0.00 |
+| ADM10160         |                 2 |           38000.00 |            4 |      38000.00 |       0.00 |
+| ADM10161         |                 2 |           40000.00 |            4 |      40000.00 |       0.00 |
+| ADM10162         |                 2 |           43000.00 |            4 |      43000.00 |       0.00 |
+| ADM10163         |                 2 |           38000.00 |            2 |      38000.00 |       0.00 |
+| ADM10164         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10165         |                 2 |           30000.00 |            2 |      30000.00 |       0.00 |
+| ADM10166         |                 2 |           35000.00 |            3 |      35000.00 |       0.00 |
+| ADM10167         |                 3 |           42000.00 |            5 |      42000.00 |       0.00 |
+| ADM10168         |                 1 |           18000.00 |            0 |          0.00 |   18000.00 |
+| ADM10169         |                 2 |           35000.00 |            2 |      35000.00 |       0.00 |
+| ADM10170         |                 2 |           15000.00 |            5 |      15000.00 |       0.00 |
+| ADM10171         |                 1 |           15000.00 |            3 |      15000.00 |       0.00 |
+| ADM10172         |                 3 |           47000.00 |            6 |      47000.00 |       0.00 |
+| ADM10173         |                 3 |           41000.00 |            4 |      41000.00 |       0.00 |
+| ADM10174         |                 1 |           10000.00 |            3 |      10000.00 |       0.00 |
+| ADM10175         |                 2 |           37000.00 |            2 |      37000.00 |       0.00 |
+| ADM10176         |                 2 |           33000.00 |            5 |      40000.00 |   -7000.00 |
+| ADM10177         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10178         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10179         |                 3 |           53000.00 |            3 |      53000.00 |       0.00 |
+| ADM10180         |                 2 |           25000.00 |            2 |      25000.00 |       0.00 |
+| ADM10181         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10182         |                 2 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10183         |                 1 |            5000.00 |            1 |       5000.00 |       0.00 |
+| ADM10184         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10185         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10186         |                 3 |           58000.00 |            4 |      47057.00 |   10943.00 |
+| ADM10187         |                 2 |           36000.00 |            2 |      31410.00 |    4590.00 |
+| ADM10188         |                 1 |           20000.00 |            2 |      20000.00 |       0.00 |
+| ADM10189         |                 2 |           23000.00 |            2 |      23000.00 |       0.00 |
+| ADM10190         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10191         |                 5 |           78000.00 |            8 |      78000.00 |       0.00 |
+| ADM10192         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10193         |                 3 |           40000.00 |            6 |      40000.00 |       0.00 |
+| ADM10194         |                 2 |           33000.00 |            3 |      33000.00 |       0.00 |
+| ADM10195         |                 2 |           33000.00 |            5 |      38000.00 |   -5000.00 |
+| ADM10196         |                 2 |           20000.00 |            5 |      20000.00 |       0.00 |
+| ADM10197         |                 1 |            5000.00 |            1 |       5000.00 |       0.00 |
+| ADM10198         |                 1 |           20000.00 |            2 |      20000.00 |       0.00 |
+| ADM10199         |                 2 |           28000.00 |            4 |      27161.00 |     839.00 |
+| ADM10200         |                 2 |           16000.00 |            4 |      16000.00 |       0.00 |
+| ADM10201         |                 4 |           90000.00 |            6 |      90000.00 |       0.00 |
+| ADM10202         |                 3 |           43000.00 |            3 |      43000.00 |       0.00 |
+| ADM10203         |                 2 |           40000.00 |            6 |      40000.00 |       0.00 |
+| ADM10204         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10205         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10206         |                 2 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10207         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10208         |                 2 |           24000.00 |            2 |      24000.00 |       0.00 |
+| ADM10209         |                 1 |           10000.00 |            3 |      10000.00 |       0.00 |
+| ADM10210         |                 1 |           15000.00 |            2 |      15000.00 |       0.00 |
+| ADM10211         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10212         |                 3 |           48000.00 |            6 |      36154.00 |   11846.00 |
+| ADM10213         |                 1 |           12000.00 |            2 |      12000.00 |       0.00 |
+| ADM10214         |                 2 |           26000.00 |            4 |      26000.00 |       0.00 |
+| ADM10215         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10216         |                 1 |           18000.00 |            1 |      18000.00 |       0.00 |
+| ADM10217         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10218         |                 2 |           37000.00 |            4 |      37000.00 |       0.00 |
+| ADM10219         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10220         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10221         |                 2 |           33000.00 |            5 |      40000.00 |   -7000.00 |
+| ADM10222         |                 1 |           15000.00 |            3 |      15000.00 |       0.00 |
+| ADM10223         |                 2 |           28000.00 |            3 |      28000.00 |       0.00 |
+| ADM10224         |                 1 |            5000.00 |            2 |       5000.00 |       0.00 |
+| ADM10225         |                 2 |           30000.00 |            4 |      30000.00 |       0.00 |
+| ADM10226         |                 3 |           61000.00 |            8 |      61000.00 |       0.00 |
+| ADM10227         |                 2 |           30000.00 |            3 |      30000.00 |       0.00 |
+| ADM10228         |                 1 |            8000.00 |            3 |       8000.00 |       0.00 |
+| ADM10229         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10230         |                 2 |           33000.00 |            2 |      33000.00 |       0.00 |
+| ADM10231         |                 1 |           18000.00 |            2 |      18000.00 |       0.00 |
+| ADM10232         |                 3 |           60000.00 |            8 |      60000.00 |       0.00 |
+| ADM10233         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10234         |                 2 |           40000.00 |            3 |      40000.00 |       0.00 |
+| ADM10235         |                 3 |           40000.00 |            6 |      40000.00 |       0.00 |
+| ADM10236         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10237         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10238         |                 2 |           30000.00 |            5 |      37000.00 |   -7000.00 |
+| ADM10239         |                 2 |           17000.00 |            3 |      17000.00 |       0.00 |
+| ADM10240         |                 1 |            8000.00 |            2 |       8000.00 |       0.00 |
+| ADM10241         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10242         |                 2 |           45000.00 |            2 |      45000.00 |       0.00 |
+| ADM10243         |                 1 |           18000.00 |            2 |      18000.00 |       0.00 |
+| ADM10244         |                 1 |           12000.00 |            2 |      12000.00 |       0.00 |
+| ADM10245         |                 2 |           28000.00 |            6 |      28000.00 |       0.00 |
+| ADM10246         |                 2 |           36000.00 |            6 |      36000.00 |       0.00 |
+| ADM10247         |                 2 |           28000.00 |            2 |      28000.00 |       0.00 |
+| ADM10248         |                 1 |            8000.00 |            3 |       8000.00 |       0.00 |
+| ADM10249         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10250         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10251         |                 2 |           20000.00 |            2 |      20000.00 |       0.00 |
+| ADM10252         |                 3 |           36000.00 |            4 |      18000.00 |   18000.00 |
+| ADM10253         |                 2 |           33000.00 |            4 |      33000.00 |       0.00 |
+| ADM10254         |                 3 |           38000.00 |            4 |      38000.00 |       0.00 |
+| ADM10255         |                 2 |           26000.00 |            4 |      26000.00 |       0.00 |
+| ADM10256         |                 3 |           35000.00 |            5 |      35000.00 |       0.00 |
+| ADM10257         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10258         |                 2 |           40000.00 |            5 |      40000.00 |       0.00 |
+| ADM10259         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10260         |                 1 |           20000.00 |            1 |      20000.00 |       0.00 |
+| ADM10261         |                 2 |           36000.00 |            3 |      36000.00 |       0.00 |
+| ADM10262         |                 1 |           12000.00 |            2 |      12000.00 |       0.00 |
+| ADM10263         |                 1 |           10000.00 |            2 |      10000.00 |       0.00 |
+| ADM10264         |                 2 |           27000.00 |            2 |      27000.00 |       0.00 |
+| ADM10265         |                 1 |            5000.00 |            1 |       5000.00 |       0.00 |
+| ADM10266         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10267         |                 2 |           26000.00 |            3 |      26000.00 |       0.00 |
+| ADM10268         |                 1 |           25000.00 |            1 |      25000.00 |       0.00 |
+| ADM10269         |                 1 |           15000.00 |            3 |      15000.00 |       0.00 |
+| ADM10270         |                 2 |           27000.00 |            5 |      27000.00 |       0.00 |
+| ADM10271         |                 3 |           42000.00 |            3 |      39083.00 |    2917.00 |
+| ADM10272         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10273         |                 2 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10274         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10275         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10276         |                 1 |           12000.00 |            1 |      12000.00 |       0.00 |
+| ADM10277         |                 2 |           37000.00 |            4 |      33033.00 |    3967.00 |
+| ADM10278         |                 2 |           45000.00 |            4 |      45000.00 |       0.00 |
+| ADM10279         |                 1 |           25000.00 |            2 |      25000.00 |       0.00 |
+| ADM10280         |                 3 |           32000.00 |            7 |      32000.00 |       0.00 |
+| ADM10281         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10282         |                 1 |           10000.00 |            1 |      10000.00 |       0.00 |
+| ADM10283         |                 1 |           15000.00 |            1 |      15000.00 |       0.00 |
+| ADM10284         |                 1 |            5000.00 |            3 |       4263.00 |     737.00 |
+| ADM10285         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10286         |                 3 |           32000.00 |            3 |      30238.00 |    1762.00 |
+| ADM10287         |                 2 |           28000.00 |            3 |      24798.00 |    3202.00 |
+| ADM10288         |                 1 |            8000.00 |            1 |       8000.00 |       0.00 |
+| ADM10289         |                 3 |           36000.00 |            3 |      28000.00 |    8000.00 |
+| ADM10290         |                 2 |           33000.00 |            4 |      33000.00 |       0.00 |
+| ADM10291         |                 2 |           20000.00 |            4 |      20000.00 |       0.00 |
+| ADM10292         |                 2 |           23000.00 |            4 |      23000.00 |       0.00 |
+| ADM10293         |                 1 |           25000.00 |            3 |      25000.00 |       0.00 |
+| ADM10294         |                 1 |           15000.00 |            2 |      18000.00 |   -3000.00 |
+| ADM10295         |                 3 |           46000.00 |            6 |      46000.00 |       0.00 |
+| ADM10296         |                 2 |           20000.00 |            3 |      20000.00 |       0.00 |
+| ADM10297         |                 2 |           25000.00 |            2 |      25000.00 |       0.00 |
+| ADM10298         |                 2 |           16000.00 |            2 |      16000.00 |       0.00 |
+| ADM10299         |                 3 |           38000.00 |            7 |      38000.00 |       0.00 |
+| ADM10300         |                 2 |           15000.00 |            3 |      15000.00 |       0.00 |
++------------------+-------------------+--------------------+--------------+---------------+------------+
